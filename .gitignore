@@ -1,0 +1,39 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Dados / pesos (nunca versionar)
+data/
+datasets/
+*.nii
+*.nii.gz
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.pkl
+*.parquet
+*.grib
+*.nc
+
+# Segredos / ambiente
+.env
+.env.*
+credentials*
+*.pem
+
+# SO / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Outputs grandes
+results/
+runs/
+wandb/
+lightning_logs/
