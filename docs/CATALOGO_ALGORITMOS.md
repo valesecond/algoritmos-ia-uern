@@ -66,9 +66,24 @@
 
 ---
 
+## 4. Ultrassom fetal — biometria temporal (HC18)
+
+| ID | Nome | Tipo | Arquivo | Tarefa |
+|----|------|------|---------|--------|
+| F-RNN | TemporalHC (RNN) | Vanilla RNN 2 camadas | `fetal_ultrasound/models/temporal_hc.py` | Predizer próximo HC (mm) |
+| F-LSTM | TemporalHC (LSTM) | LSTM 2 camadas | mesmo | idem |
+| F-GRU | TemporalHC (GRU) | GRU 2 camadas | mesmo | idem |
+
+**Dados:** HC18 (Zenodo). Séries = proxy longitudinal (pacientes ordenados por HC).  
+**Demo completa:** `Vescanis/fetal_us_experiment/run_experiment.py --demo`  
+**Smoke test API:** `fetal_ultrasound/examples/demo_temporal_hc.py`
+
+---
+
 ## Como o professor pode explorar
 
 1. Abrir `docs/CATALOGO_ALGORITMOS.md` (este arquivo).  
 2. Para **GNN / CNN 3D / GRU / LSTM / Transformer** médicos: começar por `medical_mri/examples/train_patient037_improved_pipeline.py` e buscar as classes da tabela.  
 3. Para **eólica**: `wind_power/models/deep_temporal.py`.  
-4. Para **oclusão**: `occlusion/README.md` (sem métricas inventadas).
+4. Para **oclusão**: `occlusion/README.md` (sem métricas inventadas).  
+5. Para **fetal / HC**: `fetal_ultrasound/models/temporal_hc.py`.

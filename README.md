@@ -1,4 +1,4 @@
-# Algoritmos de IA — Imagem Médica · Energia Eólica · Oclusão (conceito)
+# Algoritmos de IA — Imagem Médica · Energia · Oclusão · Ultrassom fetal
 
 Repositório curado para disponibilizar ao professor e à disciplina os **algoritmos efetivamente implementados** nos trabalhos de pesquisa/aplicação de:
 
@@ -6,7 +6,8 @@ Repositório curado para disponibilizar ao professor e à disciplina os **algori
 |---------|-------------------|
 | **Imagem médica (MRI / glioma)** | Vescanis / OncoChronos / SegTimeNet |
 | **Energia eólica (RN)** | ERA5-RN Wind Power |
-| **Oclusão / trajetória em vídeo** | Conceito pedagógico (sem experimento publicado neste workspace) |
+| **Oclusão / trajetória em vídeo** | Conceito pedagógico |
+| **Ultrassom fetal (HC)** | Experimento didático HC18 (RNN / LSTM / GRU) |
 
 **Autor:** Francisco Fernandes do Vale Segundo  
 **Instituição:** UERN  
@@ -21,7 +22,8 @@ Centralizar código de modelos (GNN, CNN, RNN/GRU/LSTM, TCN, baselines clássico
 
 1. previsão longitudinal de FLAIR / modelagem temporal em RM;
 2. previsão de geração eólica (ONS) com séries + reanálise ERA5;
-3. material conceitual de predição sob oclusão (visão computacional).
+3. material conceitual de predição sob oclusão (visão computacional);
+4. predição temporal de perímetro cefálico fetal (HC18).
 
 > **Honestidade metodológica:** este repositório **não inventa** algoritmos. O que não tinha implementação executável no workspace aparece marcado como *conceito / paper only / wrapper externo*.
 
@@ -42,7 +44,6 @@ Centralizar código de modelos (GNN, CNN, RNN/GRU/LSTM, TCN, baselines clássico
 | **GNN** | `TemporalEntropyGraphPredictor` (grafo temporal de regiões) | `examples/train_patient037_improved_pipeline.py` |
 | **NARX** | `VoxelNARXPredictor` e híbridos | `models/narx*.py` |
 | **Clássicos** | Random Forest, LinearSVR, stacking Ridge | no pipeline `examples/...` e heads multimodais |
-| **nnU-Net** | apenas *wrapper* de inferência externa (não treina a arquitetura aqui) | histórico Vescanis / paper ReCiC |
 
 ### Energia eólica (`wind_power/`)
 
@@ -50,16 +51,24 @@ Centralizar código de modelos (GNN, CNN, RNN/GRU/LSTM, TCN, baselines clássico
 |---------|-----------|-----------|
 | **GRU** | `GRUForecaster` | `models/deep_temporal.py` |
 | **LSTM** | `LSTMForecaster` | `models/deep_temporal.py` |
-| **TCN** | `TCNForecaster` (convolução causal dilatada) | `models/deep_temporal.py` |
-| **Clássicos** | Persistência, média histórica, LR, RF, GBM/MLP | `models/baselines.py`, `models/trainers.py` |
-| **Espacial** | Persistência / climatologia de mapas | `models/spatial_forecast.py` |
+| **TCN** | `TCNForecaster` | `models/deep_temporal.py` |
+| **Clássicos** | Persistência, LR, RF, GBM/MLP | `models/baselines.py`, `models/trainers.py` |
 
 ### Oclusão (`occlusion/`)
 
 | Status | Conteúdo |
 |--------|----------|
-| Conceito + stub pedagógico | `concept/` + figuras em `assets/` |
-| **Sem** métricas/experimentos inventados | Ver `occlusion/README.md` |
+| Conceito + stub pedagógico | `concept/` |
+
+### Ultrassom fetal (`fetal_ultrasound/`)
+
+| Família | Algoritmo | Onde está |
+|---------|-----------|-----------|
+| **RNN** | `TemporalHC(kind="rnn")` | `models/temporal_hc.py` |
+| **LSTM** | `TemporalHC(kind="lstm")` | `models/temporal_hc.py` |
+| **GRU** | `TemporalHC(kind="gru")` | `models/temporal_hc.py` |
+
+Catálogo completo: [`docs/CATALOGO_ALGORITMOS.md`](docs/CATALOGO_ALGORITMOS.md)
 
 ---
 
@@ -67,47 +76,40 @@ Centralizar código de modelos (GNN, CNN, RNN/GRU/LSTM, TCN, baselines clássico
 
 ```text
 algoritmos-ia-uern/
-├── README.md                 ← este arquivo
+├── README.md
 ├── requirements.txt
-├── .gitignore
 ├── docs/
 │   ├── CATALOGO_ALGORITMOS.md
 │   └── ORIGEM_E_LICENCA.md
 ├── medical_mri/
-│   ├── models/               ← módulos PyTorch / sklearn
-│   └── examples/             ← pipeline Patient-037 (CNN/GRU/LSTM/GNN/Transformer)
 ├── wind_power/
-│   └── models/               ← GRU/LSTM/TCN + baselines
 ├── occlusion/
-│   ├── README.md
-│   └── concept/              ← stub educacional de trajetória
-└── assets/                   ← GIFs/figuras de apoio (oclusão)
+└── fetal_ultrasound/
+    ├── models/temporal_hc.py   ← RNN / LSTM / GRU
+    ├── examples/demo_temporal_hc.py
+    └── README.md
 ```
 
 ---
 
-## Como usar (visão geral)
+## Como usar
 
 ```bash
 cd algoritmos-ia-uern
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
+.venv\Scripts\activate          # Windows
 pip install -r requirements.txt
+
+# smoke test fetal
+python fetal_ultrasound/examples/demo_temporal_hc.py
 ```
 
-- **Eólica:** importe `wind_power.models.deep_temporal` (ajuste `PYTHONPATH` ou instale em modo editável conforme sua prática).
-- **MRI:** os modelos em `medical_mri/models` são módulos; o pipeline completo está em `medical_mri/examples/train_patient037_improved_pipeline.py` (depende de dados LUMIERE / Patient-* **não incluídos** neste repo por tamanho/privacidade).
+```python
+from fetal_ultrasound.models import build_model
+model = build_model("lstm", input_dim=34, hidden=64)
+```
 
----
-
-## O que NÃO está neste repositório
-
-- Volumes NIfTI / datasets clínicos brutos  
-- Checkpoints de redes treinadas (pesados)  
-- Código de treino completo do nnU-Net (externo)  
-- Código experimental do artigo ReCiC (apenas descrito no paper)  
-- “IA” do MAMO (é mock de UI, não modelo)
+Demo completa com imagens HC18 (treino ~75 s): pasta `Vescanis/fetal_us_experiment/`.
 
 ---
 
@@ -116,9 +118,10 @@ pip install -r requirements.txt
 | Trabalho | Papel |
 |----------|--------|
 | **OncoChronos / Iberamia** | Framework longitudinal FLAIR — GRU multimodal + realismo anatômico |
-| **ReCiC** | Segmentação mamária (nnU-Net + triagem) — paper; código de modelos não estava no workspace |
+| **ReCiC** | Segmentação mamária (nnU-Net + triagem) — paper |
 | **ERA5-RN** | Recurso ERA5-Land ≠ geração ONS; GRU/LSTM/TCN + baselines |
-| **Portfólio / oclusão** | Capítulo conceitual de visão |
+| **Oclusão** | Capítulo conceitual de visão |
+| **Fetal / HC18** | Experimento didático de predição temporal (RNN/LSTM/GRU) |
 
 ---
 
