@@ -9,6 +9,10 @@ __pycache__/
 # Dados / pesos (nunca versionar)
 data/
 datasets/
+
+# Exceção: subset didático HC18 (CC BY 4.0, ~10 MB)
+!fetal_ultrasound/data/
+!fetal_ultrasound/data/**
 *.nii
 *.nii.gz
 *.h5

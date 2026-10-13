@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Demo mínima dos modelos F-RNN / F-LSTM / F-GRU (sem dataset).
+Demo mínima dos modelos F-RNN / F-LSTM / F-GRU (tensores aleatórios, sem ler imagem).
 
-Mostra shapes e um passo de forward — útil para o professor inspecionar a API.
-Para o experimento completo com HC18, use Vescanis/fetal_us_experiment/.
+Mostra shapes e um passo de forward — útil para inspecionar a API.
+Para treinar nas 80 imagens HC18 deste repositório:
+    python fetal_ultrasound/examples/run_hc18_experiment.py
 """
 from __future__ import annotations
 

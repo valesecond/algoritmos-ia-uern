@@ -85,8 +85,9 @@ algoritmos-ia-uern/
 ├── wind_power/
 ├── occlusion/
 └── fetal_ultrasound/
+    ├── data/hc18_subset/       ← 80 imagens HC18 (CC BY 4.0)
     ├── models/temporal_hc.py   ← RNN / LSTM / GRU
-    ├── examples/demo_temporal_hc.py
+    ├── examples/run_hc18_experiment.py
     └── README.md
 ```
 
@@ -100,8 +101,8 @@ python -m venv .venv
 .venv\Scripts\activate          # Windows
 pip install -r requirements.txt
 
-# smoke test fetal
-python fetal_ultrasound/examples/demo_temporal_hc.py
+# treino no subset HC18 já incluído no clone (~1 min na CPU)
+python fetal_ultrasound/examples/run_hc18_experiment.py
 ```
 
 ```python
@@ -109,7 +110,7 @@ from fetal_ultrasound.models import build_model
 model = build_model("lstm", input_dim=34, hidden=64)
 ```
 
-Demo completa com imagens HC18 (treino ~75 s): pasta `Vescanis/fetal_us_experiment/`.
+Imagens: `fetal_ultrasound/data/hc18_subset/` (80 planos HC18, licença CC BY 4.0, citação em `fetal_ultrasound/data/README.md`).
 
 ---
 

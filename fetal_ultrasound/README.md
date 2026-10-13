@@ -20,17 +20,20 @@ O release Zenodo do HC18 traz **1 imagem por `subject_id`**.
 As séries longitudinais do experimento são um **proxy**: pacientes distintos ordenados por HC (progresso gestacional aproximado).  
 Não é coorte clínica de anomalia fetal nem paper diagnóstico.
 
-## Como treinar (demo ~75 s)
+## Dataset neste repositório
 
-Os scripts de preparação/treino completos ficam em:
+O subset já está em `data/hc18_subset/` (80 imagens + anotações + `manifest.csv`, ~10 MB).
 
-`Vescanis/fetal_us_experiment/`
+Licença **CC BY 4.0**. Citação e link do conjunto completo: [`data/README.md`](data/README.md).
 
 ```bash
-cd path/to/Vescanis/fetal_us_experiment
-python prepare_subset.py
-python run_experiment.py --demo
+# na raiz do repositório
+python fetal_ultrasound/examples/run_hc18_experiment.py
 ```
+
+Figuras e `metrics.json` saem em `fetal_ultrasound/results/` (não versionado).
+
+O zip oficial do treino (~127 MB) não entra aqui: o GitHub recusa arquivo acima de 100 MB. O release completo continua em https://doi.org/10.5281/zenodo.1322001
 
 Neste repositório, o módulo importável é:
 

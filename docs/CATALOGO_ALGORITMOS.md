@@ -74,9 +74,9 @@
 | F-LSTM | TemporalHC (LSTM) | LSTM 2 camadas | mesmo | idem |
 | F-GRU | TemporalHC (GRU) | GRU 2 camadas | mesmo | idem |
 
-**Dados:** HC18 (Zenodo). Séries = proxy longitudinal (pacientes ordenados por HC).  
-**Demo completa:** `Vescanis/fetal_us_experiment/run_experiment.py --demo`  
-**Smoke test API:** `fetal_ultrasound/examples/demo_temporal_hc.py`
+**Dados:** subset de 80 imagens HC18 em `fetal_ultrasound/data/hc18_subset/` (CC BY 4.0, Zenodo 10.5281/zenodo.1322001). Séries = proxy longitudinal (pacientes ordenados por HC).  
+**Treino no subset:** `python fetal_ultrasound/examples/run_hc18_experiment.py`  
+**Smoke test API (sem imagem):** `fetal_ultrasound/examples/demo_temporal_hc.py`
 
 ---
 
@@ -86,4 +86,4 @@
 2. Para **GNN / CNN 3D / GRU / LSTM / Transformer** médicos: começar por `medical_mri/examples/train_patient037_improved_pipeline.py` e buscar as classes da tabela.  
 3. Para **eólica**: `wind_power/models/deep_temporal.py`.  
 4. Para **oclusão**: `occlusion/README.md` (sem métricas inventadas).  
-5. Para **fetal / HC**: `fetal_ultrasound/models/temporal_hc.py`.
+5. Para **fetal / HC**: imagens em `fetal_ultrasound/data/hc18_subset/` e treino em `fetal_ultrasound/examples/run_hc18_experiment.py`.

@@ -9,7 +9,13 @@ Os arquivos deste repositório foram **curados/copiados** a partir dos workspace
 
 ## Dados
 
-Datasets clínicos (LUMIERE, INbreast) e séries ONS/ERA5 **não** entram neste repositório.
+Datasets clínicos restritos (LUMIERE, INbreast) e séries ONS/ERA5 **não** entram neste repositório.
+
+O único dataset versionado é um **recorte de 80 imagens** do HC18 (ultrassom fetal, plano da cabeça), em `fetal_ultrasound/data/hc18_subset/`.
+
+- Licença: Creative Commons Attribution 4.0 International.
+- Fonte: van den Heuvel et al., Zenodo https://doi.org/10.5281/zenodo.1322001
+- O zip completo do treino (~127 MB) fica no Zenodo: o GitHub recusa arquivos acima de 100 MB.
 
 ## Uso acadêmico
 
